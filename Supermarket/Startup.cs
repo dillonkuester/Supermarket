@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,8 @@ namespace Supermarket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+     
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<AppDbContext>(options => {
@@ -38,6 +41,13 @@ namespace Supermarket
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            services.AddAutoMapper();
+#pragma warning restore CS0618 // Type or member is obsolete
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
